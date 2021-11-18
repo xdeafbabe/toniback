@@ -28,8 +28,11 @@ setuptools.setup(
         'SQLAlchemy==1.4.27',
         'alembic==1.7.5',
         'databases[postgresql]==0.5.3',
+        'fastapi==0.70.0',
         'psycopg2-binary==2.9.2',
         'pydantic==1.8.2',
+        'ujson==4.2.0',
+        'uvicorn[standard]==0.15.0',
     ],
     extras_require={
         'dev': [
@@ -40,6 +43,7 @@ setuptools.setup(
             'pep8-naming==0.12.1',
         ],
         'test': [
+            'async-asgi-testclient==1.4.7',
             'pytest-asyncio==0.16.0',
             'pytest-cov==3.0.0',
             'pytest-freezegun==0.4.2',
