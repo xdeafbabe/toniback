@@ -1,4 +1,5 @@
 import datetime
+import typing
 
 import pydantic
 
@@ -15,7 +16,7 @@ class PostCreate(PostBase):
 class PostGet(PostBase):
     id: int
     created_at: datetime.datetime
-    updated_at: datetime.datetime
+    updated_at: typing.Optional[datetime.datetime]
 
 
 class PostGetList(pydantic.BaseModel):
