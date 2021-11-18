@@ -11,7 +11,7 @@ class PostgresNotConnectedError(Exception):
 
 
 metadata = sqlalchemy.MetaData()
-session = typing.Optional[databases.Database]
+session: typing.Optional[databases.Database] = None
 
 
 async def connect() -> None:
