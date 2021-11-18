@@ -16,13 +16,13 @@ setuptools.setup(
     author_email='euromancer@icloud.com',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Operating System :: OS Independent',
     ],
     project_urls={
         'Repository': 'https://github.com/Euromance/toniback',
     },
-    python_requires='>=3.9,<4.0',
+    python_requires='>=3.10,<4.0',
     install_requires=[
         'SQLAlchemy-Utils==0.37.9',
         'SQLAlchemy==1.4.27',
