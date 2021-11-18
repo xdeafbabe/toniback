@@ -24,6 +24,7 @@ bootstrap:
 migrate:
 	sudo -u postgres psql -c "CREATE DATABASE toni;"
 	sudo -u postgres psql -c "CREATE USER toni WITH ENCRYPTED PASSWORD 'toni';"
+	sudo -u postgres psql -c "ALTER USER toni CREATEDB;"
 	sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE toni to toni;"
 	$(VENV)/bin/alembic upgrade head
 
