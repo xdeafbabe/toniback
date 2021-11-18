@@ -1,5 +1,6 @@
 import datetime
 
+import pytz
 import sqlalchemy
 import sqlalchemy.sql
 
@@ -15,13 +16,21 @@ Post = sqlalchemy.Table(
     sqlalchemy.Column('content', sqlalchemy.Text, nullable=False),
     sqlalchemy.Column(
         'created_at',
-        sqlalchemy.DateTime,
+        sqlalchemy.DateTime(timezone=True),
         nullable=False,
         server_default=sqlalchemy.sql.text('NOW()'),
         index=True,
     ),
-    sqlalchemy.Column('updated_at', sqlalchemy.DateTime, nullable=True),
+    sqlalchemy.Column(
+        'updated_at',
+        sqlalchemy.DateTime(timezone=True),
+        nullable=True,
+    ),
 )
+
+
+class PostDoesNotExist(Exception):
+    """Raised on attempt to query nonexistent post."""
 
 
 async def post_create(post: schemas.PostCreate) -> schemas.PostGet:
@@ -33,6 +42,10 @@ async def post_create(post: schemas.PostCreate) -> schemas.PostGet:
 async def post_get_by_id(post_id: int) -> schemas.PostGet:
     query = Post.select().where(Post.c.id == post_id)
     fetched = await postgres.get_session().fetch_one(query)
+
+    if not fetched:
+        raise PostDoesNotExist
+
     return schemas.PostGet(**fetched)
 
 
@@ -50,9 +63,13 @@ async def post_update(
         Post.c.id == post_id,
     ).values(
         **post.dict(),
-        updated_at=datetime.datetime.now(),
+        updated_at=datetime.datetime.now(tz=pytz.UTC),
     ).returning(*Post.c)
     updated = await postgres.get_session().fetch_one(query)
+
+    if not updated:
+        raise PostDoesNotExist
+
     return schemas.PostGet(**updated)
 
 

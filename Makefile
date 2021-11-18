@@ -22,10 +22,10 @@ bootstrap:
 	$(PYTHON) -m pip install -e .[dev,test,vim]
 
 migrate:
-	sudo -u postgres psql -c "CREATE DATABASE toni;"
-	sudo -u postgres psql -c "CREATE USER toni WITH ENCRYPTED PASSWORD 'toni';"
-	sudo -u postgres psql -c "ALTER USER toni CREATEDB;"
-	sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE toni to toni;"
+	sudo -u postgres psql -c "CREATE DATABASE toni;" || true
+	sudo -u postgres psql -c "CREATE USER toni WITH ENCRYPTED PASSWORD 'toni';" || true
+	sudo -u postgres psql -c "ALTER USER toni CREATEDB;" || true
+	sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE toni to toni;" || true
 	$(VENV)/bin/alembic upgrade head
 
 lint:
