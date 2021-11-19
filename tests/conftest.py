@@ -1,5 +1,6 @@
 import uuid
 
+import async_asgi_testclient
 import databases
 import pytest
 import pytest_mock
@@ -7,6 +8,7 @@ import sqlalchemy
 import sqlalchemy.engine
 import sqlalchemy_utils
 
+import toniback
 import toniback.core.config
 import toniback.core.postgres
 import toniback.models
@@ -39,3 +41,9 @@ async def postgres(mocker: pytest_mock.MockerFixture) -> None:
     mocker.patch('toniback.core.postgres.get_session', return_value=session)
     yield
     await session.disconnect()
+
+
+@pytest.fixture()
+async def api_client(postgres: None) -> async_asgi_testclient.TestClient:
+    async with async_asgi_testclient.TestClient(toniback.app) as client:
+        yield client
