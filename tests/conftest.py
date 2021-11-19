@@ -26,6 +26,9 @@ def prepare_test_database() -> None:
         connection.execute(sqlalchemy.text("""
             INSERT INTO post (title, content, created_at)
             VALUES ('Title', 'Content', '2010-01-01 00:00:00+00');
+
+            INSERT INTO blog (name, description)
+            VALUES ('Name', 'Description');
         """))
     yield
     sqlalchemy_utils.drop_database(engine.url)
