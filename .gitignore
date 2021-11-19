@@ -1,7 +1,8 @@
-__pycache__/
 .*
+__pycache__/
 htmlcov/
 .coverage
+coverage.xml
 *.egg-info
 *.egg
 *.eggs
