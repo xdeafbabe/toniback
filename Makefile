@@ -18,7 +18,7 @@ PYTHON = $(VENV)/bin/python
 
 bootstrap:
 	python3 -m venv $(VENV)
-	$(PYTHON) -m pip install pip==21.3.1 setuptools==59.1.1 wheel==0.37.0
+	$(PYTHON) -m pip install pip==21.3.1 setuptools==59.2.0 wheel==0.37.0
 	$(PYTHON) -m pip install -e .[dev,test,vim]
 
 migrate:
